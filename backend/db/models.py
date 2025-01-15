@@ -25,16 +25,11 @@ class Users(Base):
     user_id = Column(Integer, primary_key=True, index=True)
     user_firstName = Column(String, nullable=False)
     user_lastName = Column(String, nullable=False)
-    user_role = Column(Enum(UserRole), nullable=False)
+    user_role = Column(Enum(UserRole), default=UserRole.STUDENT, nullable=False)
     user_username = Column(String, unique=True, nullable=False)
-    user_email = Column(String, unique=True, nullable=False)
-    user_dateOfBirth = Column(Date, nullable=True)
-    user_streetAddress = Column(String, nullable=True)
-    user_city = Column(String, nullable=True)
-    user_state = Column(String, nullable=True)
-    user_zipcode = Column(String, nullable=True)
-    hashed_password = Column(String, nullable=False)  # Add this
-    is_active = Column(Boolean, default=True)         # Add this
+    hashed_password = Column(String, nullable=False)
+    is_profile_complete = Column(Boolean, default=False)  # New field to track profile completion
+    is_active = Column(Boolean, default=True)
 
     # Relationships
     courses = relationship("Courses", secondary=student_courses, back_populates="students")
