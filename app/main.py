@@ -2,8 +2,18 @@ from fastapi import FastAPI
 from app.routers import auth, protected, profile
 from backend.db.database import engine
 import backend.db.models as models
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Update this to match your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Initialize database
 models.Base.metadata.create_all(bind=engine)
