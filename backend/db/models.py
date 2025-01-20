@@ -10,6 +10,7 @@ class UserRole(enum.Enum):
     ADMIN = "admin"
     PARENT = "parent"
     STUDENT = "student"
+    TEST = "test"
 
 # Association table for students and courses
 student_courses = Table(
@@ -25,8 +26,8 @@ class Users(Base):
     user_id = Column(Integer, primary_key=True, index=True)
     user_firstName = Column(String, nullable=False)
     user_lastName = Column(String, nullable=False)
-    user_role = Column(Enum(UserRole), default=UserRole.STUDENT, nullable=False)
-    user_username = Column(String, unique=True, nullable=False)
+    user_role = Column(Enum(UserRole), default=UserRole.TEST, nullable=False)
+    user_email = Column(String, unique=True, index=True)  # Add email as a unique identifier
     hashed_password = Column(String, nullable=False)
     is_profile_complete = Column(Boolean, default=False)  # New field to track profile completion
     is_active = Column(Boolean, default=True)
