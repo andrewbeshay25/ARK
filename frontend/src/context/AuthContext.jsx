@@ -9,19 +9,32 @@ export const AuthProvider = ({ children }) => {
 
   // Check authentication state on page load
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const firstName = localStorage.getItem("firstName");
-
-    if (token && firstName) {
+    // Create a URLSearchParams object from the current URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = queryParams.get("token");
+    const firstNameFromUrl = queryParams.get("firstName");
+  
+    if (tokenFromUrl && firstNameFromUrl) {
+      // Save token and firstName in localStorage
+      localStorage.setItem("token", tokenFromUrl);
+      localStorage.setItem("firstName", firstNameFromUrl);
+      // Update authentication state
       setIsAuthenticated(true);
-      setUser({ firstName });
+      setUser({ firstName: firstNameFromUrl });
+      // Optionally, remove query parameters from the URL for cleanliness:
+      window.history.replaceState({}, document.title, "/home");
     } else {
-      setIsAuthenticated(false);
-      setUser(null);
+      // Fallback: check localStorage if the query params aren't present
+      const token = localStorage.getItem("token");
+      const firstName = localStorage.getItem("firstName");
+      if (token && firstName) {
+        setIsAuthenticated(true);
+        setUser({ firstName });
+      }
     }
-
-    setLoading(false); // Mark loading as complete
-  }, []); // Run only once
+    setLoading(false); // mark loading as complete
+  }, []);
+   // Run only once
 
   const login = (token, firstName) => {
     localStorage.setItem("token", token);
