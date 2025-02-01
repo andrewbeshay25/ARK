@@ -1,4 +1,5 @@
 .
+├── PROJECT_STRUCTURE
 ├── PROJECT_STRUCTURE.txt
 ├── app
 │   ├── __init__.py
@@ -32,21 +33,31 @@
 │       ├── App.jsx
 │       ├── components
 │       │   ├── AuthForm.jsx
-│       │   ├── Home.jsx
-│       │   └── PrivateRoute.jsx
+│       │   ├── Dashboard
+│       │   │   ├── CourseCard.jsx
+│       │   │   ├── CourseList.jsx
+│       │   │   ├── Dashboard.jsx
+│       │   │   ├── Profile.jsx
+│       │   │   ├── Settings.jsx
+│       │   │   ├── Sidebar.jsx
+│       │   │   └── Topbar.jsx
+│       │   ├── PrivateRoute.jsx
+│       │   └── pages
+│       │       ├── CourseView.jsx
+│       │       └── Home.jsx
 │       ├── context
 │       │   └── AuthContext.jsx
-│       ├── index.css
 │       ├── index.js
-│       └── services
-│           └── api.js
+│       ├── services
+│       │   └── api.js
+│       └── styles
+│           └── index.css
 ├── .env
 ├── .gitignore
 ├── keyGenerator.py
-├── project-structure.txt
 ├── requirements.txt
 └── tests
     ├── __init__.py
     └── test_database.py
 
-15 directories, 33 files
+18 directories, 41 files
