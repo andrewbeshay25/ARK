@@ -12,6 +12,10 @@ class UserRole(enum.Enum):
     STUDENT = "student"
     TEST = "test"
 
+class AuthProvider(enum.Enum):
+    LOCAL = "local"
+    GOOGLE = "google"
+
 # Association table for students and courses
 student_courses = Table(
     "student_courses",
@@ -31,6 +35,7 @@ class Users(Base):
     hashed_password = Column(String, nullable=False)
     is_profile_complete = Column(Boolean, default=False)  # New field to track profile completion
     is_active = Column(Boolean, default=True)
+    auth_provider = Column(Enum(AuthProvider), default=AuthProvider.LOCAL, nullable=False)
 
     # Relationships
     courses = relationship("Courses", secondary=student_courses, back_populates="students")
