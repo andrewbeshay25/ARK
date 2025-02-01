@@ -1,0 +1,52 @@
+.
+├── PROJECT_STRUCTURE.txt
+├── app
+│   ├── __init__.py
+│   ├── main.py
+│   └── routers
+│       ├── __init__.py
+│       ├── auth.py
+│       ├── profile.py
+│       └── protected.py
+├── assets
+│   └── ARK_LOGO_BLACK.png
+├── backend
+│   ├── __init__.py
+│   ├── db
+│   │   ├── __init__.py
+│   │   ├── database.py
+│   │   └── models.py
+│   ├── dependencies
+│   │   └── auth.py
+│   └── utils
+│       ├── __init__.py
+│       ├── auth_utils.py
+│       └── passwordHashing.py
+├── frontend
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── google-icon.png
+│   │   └── index.html
+│   └── src
+│       ├── App.jsx
+│       ├── components
+│       │   ├── AuthForm.jsx
+│       │   ├── Home.jsx
+│       │   └── PrivateRoute.jsx
+│       ├── context
+│       │   └── AuthContext.jsx
+│       ├── index.css
+│       ├── index.js
+│       └── services
+│           └── api.js
+├── .env
+├── .gitignore
+├── keyGenerator.py
+├── project-structure.txt
+├── requirements.txt
+└── tests
+    ├── __init__.py
+    └── test_database.py
+
+15 directories, 33 files
