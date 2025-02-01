@@ -9,6 +9,8 @@ from backend.utils.passwordHashing import hash_password, verify_password
 from backend.utils.auth_utils import create_access_token
 import os
 
+from backend.db.models import AuthProvider
+
 router = APIRouter()
 
 # Pydantic model for registration request
@@ -68,6 +70,12 @@ def login_user(request: LoginRequest, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
+    if user.auth_provider == AuthProvider.GOOGLE:
+        raise HTTPException(
+            status_code=401,
+            detail="This account uses Google authentication. Please sign in using Google."
+        )
+    
     # Verify password
     if not verify_password(request.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Incorrect password")
@@ -82,7 +90,7 @@ def login_user(request: LoginRequest, db: Session = Depends(get_db)):
 
 @router.get("/google/login")
 async def google_login(request: Request):
-    redirect_uri = request.url_for("google_callback")  # This is the redirect URI
+    redirect_uri = "http://localhost:8000/auth/google/callback"
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 @router.get("/google/callback")
@@ -92,15 +100,18 @@ async def google_callback(request: Request, db: Session = Depends(get_db)):
     if not user_info:
         raise HTTPException(status_code=400, detail="Google authentication failed")
 
-    # Check if user exists in your database or register them
+    # Check if the user exists or create a new user
     db_user = db.query(Users).filter(Users.user_email == user_info["email"]).first()
     if not db_user:
-        # Register the user if not found
+        dummy_password = hash_password("google_dummy_password")
         db_user = Users(
             user_email=user_info["email"],
             user_firstName=user_info.get("given_name"),
             user_lastName=user_info.get("family_name"),
-            is_profile_complete=True,  # Assume Google profile is complete
+            hashed_password=dummy_password,  # Use dummy password
+            is_profile_complete=True,
+            # If you added an auth_provider column, set it to GOOGLE:
+            # auth_provider=AuthProvider.GOOGLE,
         )
         db.add(db_user)
         db.commit()
@@ -108,6 +119,6 @@ async def google_callback(request: Request, db: Session = Depends(get_db)):
 
     # Generate a JWT token for the user
     access_token = create_access_token({"sub": db_user.user_email})
-    response = RedirectResponse(url="http://localhost:3000/home")  # Adjust for frontend
-    response.set_cookie(key="token", value=access_token)
-    return response
+    # Build the redirect URL with token and first name in the query string:
+    redirect_url = f"http://localhost:3000/home?token={access_token}&firstName={db_user.user_firstName}"
+    return RedirectResponse(url=redirect_url)
