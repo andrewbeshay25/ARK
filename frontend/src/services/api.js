@@ -27,3 +27,56 @@ export const login = async (email, password) => {
   );
   return response.data;
 };
+
+export const getCourses = async () => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${API_BASE_URL}/courses`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+
+export const createCourse = async (courseData) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.post(
+    `${API_BASE_URL}/courses/createCourse`,
+    courseData,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const getCourseDashboard = async (courseId) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.get(`${API_BASE_URL}/courses/${courseId}/dashboard`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+// In frontend/src/services/api.js
+
+export const joinCourse = async (courseCode) => {
+  const token = localStorage.getItem("token");
+  const response = await axios.post(
+    `${API_BASE_URL}/courses/joinCourse`,
+    { course_code: courseCode },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
