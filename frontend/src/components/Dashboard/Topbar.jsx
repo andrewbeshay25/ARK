@@ -1,14 +1,26 @@
 import React from "react";
-import { FaSearch, FaBell } from "react-icons/fa";
+import { FiMenu, FiBell, FiSearch } from "react-icons/fi";
+import "./DashStyles/Topbar.css";
 
 const Topbar = () => {
   return (
-    <header className="w-full bg-white p-4 shadow flex items-center justify-between">
-      <h2 className="text-xl font-semibold">Dashboard</h2>
-      <div className="flex items-center gap-4">
-        <input type="text" placeholder="Search..." className="p-2 border rounded" />
-        <FaSearch className="cursor-pointer" />
-        <FaBell className="cursor-pointer text-gray-500" />
+    <header className="topbar">
+      <div className="flex items-center">
+        <button className="text-gray-600 focus:outline-none lg:hidden">
+          <FiMenu size={24} />
+        </button>
+        <div className="search-container">
+          <input type="text" placeholder="    Search..." />
+          <div className="search-icon">
+            <FiSearch />
+          </div>
+        </div>
+      </div>
+      <div className="icons">
+        <button className="text-gray-600 focus:outline-none">
+          <FiBell size={24} />
+        </button>
+        <div className="profile-avatar">A</div>
       </div>
     </header>
   );

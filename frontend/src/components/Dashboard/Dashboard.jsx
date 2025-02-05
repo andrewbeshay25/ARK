@@ -2,15 +2,20 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import CourseList from "./CourseList";
+import UpcomingSection from "./UpcomingSection";
+import "./DashStyles/Dashboard.css"; // Adjust the path as needed
 
 const Dashboard = () => {
   return (
-    <div className="flex h-screen">
+    <div className="dashboard-container">
       <Sidebar />
-      <div className="flex-1 flex flex-col">
+      <div className="dashboard-main">
         <Topbar />
-        <main className="p-6 bg-gray-100 flex-1">
-          <CourseList />
+        <main className="dashboard-content">
+          <UpcomingSection />
+          <div style={{ marginTop: "24px" }}>
+            <CourseList />
+          </div>
         </main>
       </div>
     </div>
