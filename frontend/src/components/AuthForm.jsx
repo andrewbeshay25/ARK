@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { register, login } from "../services/api";
 import { AuthContext } from "../context/AuthContext";
+import "./AuthForm.css";  // Import the auth-specific CSS
 
 const AuthForm = () => {
   const [isRegister, setIsRegister] = useState(false);
