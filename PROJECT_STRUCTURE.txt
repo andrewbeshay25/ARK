@@ -7,10 +7,9 @@
 │   └── routers
 │       ├── __init__.py
 │       ├── auth.py
+│       ├── courses.py
 │       ├── profile.py
 │       └── protected.py
-├── assets
-│   └── ARK_LOGO_BLACK.png
 ├── backend
 │   ├── __init__.py
 │   ├── db
@@ -31,19 +30,41 @@
 │   │   └── index.html
 │   └── src
 │       ├── App.jsx
+│       ├── assets
+│       │   ├── ARK_LOGO_BLACK.png
+│       │   └── Ark_Banner_Black.png
 │       ├── components
+│       │   ├── AuthForm.css
 │       │   ├── AuthForm.jsx
+│       │   ├── Course
+│       │   │   ├── CourseDashboard.jsx
+│       │   │   ├── CourseDashboardSidebar.jsx
+│       │   │   └── CourseStyles
+│       │   │       ├── CourseDashboard.css
+│       │   │       └── CourseDashboardSidebar.css
 │       │   ├── Dashboard
+│       │   │   ├── AddCourseModal.jsx
 │       │   │   ├── CourseCard.jsx
 │       │   │   ├── CourseList.jsx
+│       │   │   ├── CourseModal.jsx
+│       │   │   ├── DashStyles
+│       │   │   │   ├── AddCourseModal.css
+│       │   │   │   ├── CourseList.css
+│       │   │   │   ├── CourseModal.css
+│       │   │   │   ├── Dashboard.css
+│       │   │   │   ├── Sidebar.css
+│       │   │   │   ├── Topbar.css
+│       │   │   │   └── UpcomingSection.css
 │       │   │   ├── Dashboard.jsx
 │       │   │   ├── Profile.jsx
 │       │   │   ├── Settings.jsx
 │       │   │   ├── Sidebar.jsx
-│       │   │   └── Topbar.jsx
+│       │   │   ├── Topbar.jsx
+│       │   │   └── UpcomingSection.jsx
 │       │   ├── PrivateRoute.jsx
 │       │   └── pages
 │       │       ├── CourseView.jsx
+│       │       ├── Home.css
 │       │       └── Home.jsx
 │       ├── context
 │       │   └── AuthContext.jsx
@@ -60,4 +81,4 @@
     ├── __init__.py
     └── test_database.py
 
-18 directories, 41 files
+21 directories, 59 files
