@@ -1,0 +1,39 @@
+/* frontend/src/styles/CourseDashboard.css */
+.course-dashboard {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .course-main {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background: #f3f4f6;
+  }
+  
+  .course-header {
+    margin-bottom: 24px;
+  }
+  
+  .course-summary {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .summary-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 16px;
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .loading,
+  .no-data {
+    padding: 24px;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  

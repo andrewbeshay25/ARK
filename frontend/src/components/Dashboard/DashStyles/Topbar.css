@@ -1,0 +1,54 @@
+/* frontend/src/Dashbord/Topbar.css */
+.topbar {
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .topbar .search-container {
+    position: relative;
+    margin-left: 16px;
+  }
+  
+  .topbar input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 32px 8px 12px;
+    font-size: 1rem;
+  }
+  
+  .topbar .search-container .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    color: #888;
+  }
+  
+  .topbar .icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .topbar .icons button {
+    background: none;
+    border: none;
+    margin-right: 16px;
+    cursor: pointer;
+  }
+  
+  .topbar .profile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #333;
+  }
+  

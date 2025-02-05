@@ -1,0 +1,56 @@
+/* frontend/src/styles/Sidebar.css */
+.sidebar {
+  width: 256px;
+  background: #595d63;
+  color: #fff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Ensure the image fills the space appropriately without stretching */
+.banner-image {
+  max-width: 100%;
+  height: auto;
+  /* Optionally, set a max-height if needed */
+  max-height: 60px;
+  /* Center the image if it's smaller than the container */
+  margin: 0 auto;
+}
+
+/* The rest of your Sidebar styles remain unchanged */
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 12px;
+}
+
+.sidebar nav ul li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.sidebar nav ul li a:hover {
+  background: #374151;
+}
+
+.sidebar .footer {
+  margin-top: auto;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}

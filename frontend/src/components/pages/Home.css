@@ -1,0 +1,36 @@
+/* frontend/src/pages/Home.css */
+.home-container {
+    padding: 32px;
+  }
+  
+  .home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .home-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .home-header button {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .home-header button:hover {
+    background: #1d4ed8;
+  }
+  
+  .home-content {
+    margin-top: 24px;
+    font-size: 1rem;
+    color: #374151;
+  }
+  
