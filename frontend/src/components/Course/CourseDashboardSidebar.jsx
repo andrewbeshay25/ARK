@@ -4,7 +4,6 @@ import { Link, useParams } from 'react-router-dom';
 import './CourseStyles/CourseDashboardSidebar.css';
 
 const CourseDashboardSidebar = () => {
-  // Use courseId from URL if needed for dynamic links
   const { courseId } = useParams();
 
   return (
@@ -15,10 +14,13 @@ const CourseDashboardSidebar = () => {
             <Link to={`/courses/${courseId}`}>Overview</Link>
           </li>
           <li>
-            <Link to={`/courses/${courseId}/announcements`}>Announcements</Link>
+            <Link to={`/courses/${courseId}/members`}>Members</Link>
           </li>
           <li>
             <Link to={`/courses/${courseId}/assignments`}>Assignments</Link>
+          </li>
+          <li>
+            <Link to={`/courses/${courseId}/announcements`}>Announcements</Link>
           </li>
           <li>
             <Link to={`/courses/${courseId}/grades`}>Grades</Link>

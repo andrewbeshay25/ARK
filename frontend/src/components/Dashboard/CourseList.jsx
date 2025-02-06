@@ -1,17 +1,16 @@
 // frontend/src/components/Dashboard/CourseList.jsx
 import React, { useState, useEffect, useContext } from "react";
-import "./DashStyles/CourseList.css"; 
+import "./DashStyles/CourseList.css";
 import { getCourses } from "../../services/api";
 import CourseModal from "./CourseModal";
 import { FaPlus } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
 
-
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { user } = useContext(AuthContext); // user.user_role assumed to exist
+  const [modalMode, setModalMode] = useState(null); // "create" or "join"
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     fetchCourses();
@@ -28,12 +27,14 @@ const CourseList = () => {
     }
   };
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const openModal = (mode) => setModalMode(mode);
+  const closeModal = () => setModalMode(null);
   const handleCourseAdded = (newCourse) => {
-    // Immediately update the list so that the new course appears without reload.
     setCourses((prevCourses) => [...prevCourses, newCourse]);
   };
+
+  // Case-sensitive check; make sure user_role in localStorage is uppercase.
+  const isAdmin = user && (user.user_role === "ADMIN" || user.user_role === "SUPER_ADMIN");
 
   if (loading) {
     return <div>Loading courses...</div>;
@@ -42,10 +43,17 @@ const CourseList = () => {
   return (
     <div className="course-list">
       <div className="course-list-header">
-        <h3>Your Courses</h3>
-        <button className="add-course-button" onClick={handleOpenModal}>
-          <FaPlus />
-        </button>
+        <h3 className="my-title">Your Courses</h3>
+        <div className="course-buttons">
+          {isAdmin && (
+            <button className="action-btn" onClick={() => openModal("create")}>
+              Create Course
+            </button>
+          )}
+          <button className="action-btn" onClick={() => openModal("join")}>
+            Join Course
+          </button>
+        </div>
       </div>
       {courses.length > 0 ? (
         <div className="course-grid">
@@ -63,11 +71,11 @@ const CourseList = () => {
           <p>No courses available</p>
         </div>
       )}
-      {isModalOpen && (
+      {modalMode && (
         <CourseModal
-          onClose={handleCloseModal}
+          mode={modalMode}
+          onClose={closeModal}
           onCourseAdded={handleCourseAdded}
-          userRole={user.user_role} // e.g., "ADMIN", "SUPER_ADMIN", "STUDENT", etc.
         />
       )}
     </div>

@@ -3,18 +3,14 @@ import React, { useState } from "react";
 import "./DashStyles/CourseModal.css";
 import { createCourse, joinCourse } from "../../services/api";
 
-const CourseModal = ({ onClose, onCourseAdded, userRole }) => {
-  // Assume admin roles are "ADMIN" or "SUPER_ADMIN"
-  const isAdmin = userRole === "ADMIN" || userRole === "SUPER_ADMIN";
-  
-  // For admins, default to "create" mode; for others, only "join" mode is allowed.
-  const [mode, setMode] = useState(isAdmin ? "create" : "join");
+const CourseModal = ({ mode, onClose, onCourseAdded }) => {
   const [error, setError] = useState("");
 
-  // State for course creation
+  // For "create" mode
   const [courseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
-  // State for joining a course
+
+  // For "join" mode
   const [courseCode, setCourseCode] = useState("");
 
   const handleSubmitCreate = async (e) => {
@@ -24,7 +20,6 @@ const CourseModal = ({ onClose, onCourseAdded, userRole }) => {
       return;
     }
     try {
-      // Call the API to create a course (which returns the new course object)
       const newCourse = await createCourse({
         course_name: courseName,
         course_description: courseDescription,
@@ -44,7 +39,6 @@ const CourseModal = ({ onClose, onCourseAdded, userRole }) => {
       return;
     }
     try {
-      // Call the API to join a course using a course code
       const joinedCourse = await joinCourse(courseCode);
       onCourseAdded(joinedCourse);
       onClose();
@@ -57,23 +51,7 @@ const CourseModal = ({ onClose, onCourseAdded, userRole }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>{isAdmin ? "Create or Join Course" : "Join Course"}</h2>
-        {isAdmin && (
-          <div className="mode-toggle">
-            <button
-              className={mode === "create" ? "active" : ""}
-              onClick={() => { setMode("create"); setError(""); }}
-            >
-              Create
-            </button>
-            <button
-              className={mode === "join" ? "active" : ""}
-              onClick={() => { setMode("join"); setError(""); }}
-            >
-              Join
-            </button>
-          </div>
-        )}
+        <h2>{mode === "create" ? "Create Course" : "Join Course"}</h2>
         {error && <p className="modal-error">{error}</p>}
         {mode === "create" ? (
           <form onSubmit={handleSubmitCreate}>

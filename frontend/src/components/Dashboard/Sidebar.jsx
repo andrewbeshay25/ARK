@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaHome, FaBook, FaUser, FaCog } from "react-icons/fa";
-import ArkBanner from "../../assets/Ark_Banner_Black.png";
+import ArkBanner from "../../assets/Ark_Banner_Green.svg";
 import "./DashStyles/Sidebar.css";
 
 const Sidebar = () => {

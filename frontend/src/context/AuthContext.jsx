@@ -1,3 +1,4 @@
+// frontend/src/context/AuthContext.jsx
 import React, { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
@@ -5,47 +6,55 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // New loading state
+  const [loading, setLoading] = useState(true);
 
-  // Check authentication state on page load
   useEffect(() => {
-    // Create a URLSearchParams object from the current URL
+    // Read from the URL query parameters
     const queryParams = new URLSearchParams(window.location.search);
     const tokenFromUrl = queryParams.get("token");
     const firstNameFromUrl = queryParams.get("firstName");
-  
+    const userRoleFromUrl = queryParams.get("user_role");
+
     if (tokenFromUrl && firstNameFromUrl) {
-      // Save token and firstName in localStorage
+      // Save values in localStorage (include user_role if provided)
       localStorage.setItem("token", tokenFromUrl);
       localStorage.setItem("firstName", firstNameFromUrl);
-      // Update authentication state
+      if (userRoleFromUrl) {
+        localStorage.setItem("user_role", userRoleFromUrl);
+      }
       setIsAuthenticated(true);
-      setUser({ firstName: firstNameFromUrl });
-      // Optionally, remove query parameters from the URL for cleanliness:
+      setUser({
+        firstName: firstNameFromUrl,
+        user_role: userRoleFromUrl || localStorage.getItem("user_role"),
+      });
+      // Clean URL (remove query parameters)
       window.history.replaceState({}, document.title, "/home");
     } else {
-      // Fallback: check localStorage if the query params aren't present
+      // Fallback: get data from localStorage
       const token = localStorage.getItem("token");
       const firstName = localStorage.getItem("firstName");
+      const user_role = localStorage.getItem("user_role");
       if (token && firstName) {
         setIsAuthenticated(true);
-        setUser({ firstName });
+        setUser({ firstName, user_role });
       }
     }
-    setLoading(false); // mark loading as complete
+    setLoading(false);
   }, []);
-   // Run only once
 
-  const login = (token, firstName) => {
+  // The login function now accepts token, firstName, and user_role.
+  const login = (token, firstName, user_role) => {
     localStorage.setItem("token", token);
     localStorage.setItem("firstName", firstName);
+    localStorage.setItem("user_role", user_role);
     setIsAuthenticated(true);
-    setUser({ firstName });
+    setUser({ firstName, user_role });
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("firstName");
+    localStorage.removeItem("user_role");
     setIsAuthenticated(false);
     setUser(null);
   };
