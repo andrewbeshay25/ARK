@@ -6,4 +6,5 @@ router = APIRouter()
 
 @router.get("/route")
 def protected_route(current_user: Users = Depends(get_current_user)):
-    return {"message": f"Welcome {current_user.user_username}"}
+    return {"message": f"Welcome {current_user.user_firstName}"}
+
