@@ -1,4 +1,4 @@
-/* frontend/src/Dashboard/Dashboard.css */
+/* frontend/src/componenets/Dashboard/DashStyles/Dashboard.css */
 .dashboard-container {
     display: flex;
     height: 100vh;
@@ -11,9 +11,11 @@
   }
   
   .dashboard-content {
-    padding: 24px;
+    color: #252525;
+    padding-inline: 25px;
     background: #f3f4f6;
     flex: 1;
     overflow-y: auto;
   }
+
   

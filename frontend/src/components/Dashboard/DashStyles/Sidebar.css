@@ -1,8 +1,8 @@
-/* frontend/src/styles/Sidebar.css */
+/* frontend/src/componenets/Dashboard/DashStyles/Sidebar.css */
 .sidebar {
   width: 256px;
-  background: #595d63;
-  color: #fff;
+  background: #252525; /*88BDBC*/
+  color: #FFFFFF;
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -45,12 +45,12 @@
 }
 
 .sidebar nav ul li a:hover {
-  background: #374151;
+  background: #789E87;
 }
 
 .sidebar .footer {
   margin-top: auto;
   text-align: center;
-  color: #9ca3af;
+  color: #789E87;
   font-size: 0.875rem;
 }

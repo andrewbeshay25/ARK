@@ -1,28 +1,27 @@
-/* frontend/src/styles/CourseDashboardSidebar.css */
+/* frontend/src/components/Dashboard/CourseStyles/CourseDashboardSidebar.css */
 .course-dashboard-sidebar {
-    width: 240px;
-    background: #1f2937;
-    color: #fff;
-    padding: 24px;
-  }
-  
-  .course-dashboard-sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .course-dashboard-sidebar li {
-    margin-bottom: 12px;
-  }
-  
-  .course-dashboard-sidebar a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  
-  .course-dashboard-sidebar a:hover {
-    color: #9ca3af;
-  }
-  
+  width: 240px;
+  background: #1f2937;
+  color: #fff;
+  padding: 16px;
+}
+
+.course-dashboard-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.course-dashboard-sidebar li {
+  margin-bottom: 12px;
+}
+
+.course-dashboard-sidebar a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.course-dashboard-sidebar a:hover {
+  color: #9ca3af;
+}

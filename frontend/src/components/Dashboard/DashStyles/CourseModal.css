@@ -1,4 +1,4 @@
-/* frontend/src/styles/Dashboard/CourseModal.css */
+/* frontend/src/componenets/Dashboard/DashStyles/CourseModal.css */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -24,8 +24,8 @@
     font-size: 1.5rem;
   }
   .modal-content input[type="text"] {
-    width: 100%;
-    height: 40px;
+    width: 95%;
+    height: 30px;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
@@ -33,8 +33,8 @@
     font-size: 1rem;
   }
   .modal-content textarea {
-    width: 100%;
-    height: 120px; /* Triple the height of the 40px input */
+    width: 95%;
+    height: 100px; /* Triple the height of the 40px input */
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
@@ -54,8 +54,12 @@
     cursor: pointer;
   }
   .modal-submit {
-    background: #2563eb;
+    background: #252525; /*789E87*/
     color: #fff;
+    transition: background 0.3s ease;
+  }
+  .modal-submit:hover {
+    background: #789E87;
   }
   .modal-cancel {
     background: #ccc;
@@ -77,8 +81,8 @@
     background: #f9f9f9;
     cursor: pointer;
   }
-  .mode-toggle button.active {
+  /* .mode-toggle button.active {
     background: #2563eb;
     color: #fff;
-  }
+  } */
   

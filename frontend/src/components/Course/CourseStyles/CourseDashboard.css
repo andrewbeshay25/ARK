@@ -1,39 +1,49 @@
-/* frontend/src/styles/CourseDashboard.css */
+/* frontend/src/components/Dashboard/CourseStyles/CourseDashboard.css */
 .course-dashboard {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .course-main {
-    flex: 1;
-    padding: 24px;
-    overflow-y: auto;
-    background: #f3f4f6;
-  }
-  
-  .course-header {
-    margin-bottom: 24px;
-  }
-  
-  .course-summary {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  
-  .summary-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 16px;
-    flex: 1;
-    min-width: 250px;
-  }
-  
-  .loading,
-  .no-data {
-    padding: 24px;
-    text-align: center;
-    font-size: 1.2rem;
-  }
-  
+  display: flex;
+  min-height: 100vh;
+}
+
+.course-main {
+  flex: 1;
+  padding: 24px;
+  background: #f9f9f9;
+}
+
+.course-header {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 16px;
+}
+
+.course-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.course-description {
+  color: #555;
+  margin-top: 8px;
+  font-size: 1.125rem;
+}
+
+.course-content {
+  margin-top: 24px;
+}
+
+.assignments-section h3 {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+}
+
+.assignments-list {
+  list-style: none;
+  padding: 0;
+}
+
+.assignments-list li {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
