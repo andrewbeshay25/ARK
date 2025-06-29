@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/AuthContext"; // Import AuthContext
 import "./DashStyles/Dashboard.css"; // Adjust the path as needed
 
 const Dashboard = () => {
-  // const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   // // Function to determine greeting based on time of day
   // const getGreeting = () => {
@@ -25,9 +25,7 @@ const Dashboard = () => {
         <main className="dashboard-content">
           {/* <h1>{`${getGreeting()}, ${user?.firstName || "Guest"}!`}</h1> */}
           <UpcomingSection />
-          <div style={{ marginTop: "24px" }}>
-            <CourseList />
-          </div>
+          <CourseList />
         </main>
       </div>
     </div>

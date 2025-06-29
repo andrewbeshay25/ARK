@@ -6,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 60px;
   }
   
   .topbar .search-container {
@@ -30,15 +31,34 @@
   
   .topbar .icons {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    gap: 20px;
   }
   
   .topbar .icons button {
     color: #252525;
     background: none;
     border: none;
-    margin-right: 25px;
     cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 8px;
+    border-radius: 6px;
+  }
+  
+  .topbar .icons button:hover {
+    color: #789E87;
+    background: rgba(120, 158, 135, 0.1);
+  }
+  
+  .topbar .logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .topbar .logout-btn:hover {
+    color: #e53e3e;
+    background: rgba(229, 62, 62, 0.1);
   }
   
   .topbar .profile-avatar {
@@ -50,10 +70,20 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    color: #252525;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .topbar .profile-avatar:hover {
+    background: #6b8e6b;
+    transform: scale(1.05);
   }
   
   .title {
     font-size: 2.5rem;
-    font-weight:bold;
+    font-weight: bold;
+    color: #252525;
+    margin: 0;
   }
