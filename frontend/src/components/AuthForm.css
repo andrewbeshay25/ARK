@@ -1,12 +1,38 @@
 /* src/styles/Auth.css */
-/* .logo {
-  margin-bottom: 40px;
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.auth-page {
+  background-color: #252525;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   text-align: center;
-} */
+}
+
 .logo-image {
-  height: 450px;
-  margin-top: -300px;
-  margin-bottom: -450px;
+  height: 200px;
+  width: auto;
+  max-width: 80vw;
+  display: block;
 }
 
 .auth-container {
@@ -14,11 +40,10 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding-top: 160px; /* Space for logo */
+  box-sizing: border-box;
 }
 
-.auth-page{
-  background-color: #252525;
-}
 .auth-card {
   background: #252525;
   padding: 2rem;
@@ -27,6 +52,13 @@
   width: 350px;
   text-align: center;
   color: #fff;
+  transition: width 0.3s ease;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.auth-card.register-mode {
+  width: 500px;
 }
 
 .auth-card h2 {
@@ -36,28 +68,47 @@
 }
 
 .auth-card input {
-  width: 93.5%;
+  width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 .auth-card button {
   width: 100%;
   padding: 12px;
   font-size: 1rem;
-  background: #B08EA2;
+  background: #252525;
   color: white;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.1),
+    0 0 20px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
 .auth-card button:hover {
   background: #789E87;
+  box-shadow: 
+    0 0 15px rgba(120, 158, 135, 0.3),
+    0 0 30px rgba(120, 158, 135, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.auth-card button:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 0 5px rgba(120, 158, 135, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .switch-btn {
@@ -66,34 +117,106 @@
   border: none;
   cursor: pointer;
   margin-top: 10px;
+  box-shadow: none;
 }
 
-.google-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  color: #333;
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.3s;
-}
-
-.google-btn:hover {
-  background: #f0f0f0;
-}
-
-.google-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+.switch-btn:hover {
+  background: none;
+  color: #0056b3;
+  box-shadow: none;
+  transform: none;
 }
 
 .error-message {
   color: red;
   font-size: 0.9rem;
   margin-bottom: 10px;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.divider span {
+  background: #252525;
+  padding: 0 15px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: #252525;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.1),
+    0 0 20px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.google-btn:hover {
+  background: #f0f0f0;
+  color: #333;
+  box-shadow: 
+    0 0 15px rgba(240, 240, 240, 0.3),
+    0 0 30px rgba(240, 240, 240, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.google-icon {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  display: block;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.name-fields {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.name-fields input {
+  flex: 1;
+  width: auto;
 }

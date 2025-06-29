@@ -18,7 +18,7 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/home");
+      navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
 
@@ -36,7 +36,7 @@ const AuthForm = () => {
         const data = await login(email, password);
         authLogin(data.access_token, data.firstName, data.user_role);
       }
-      navigate("/home");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.detail || "An error occurred.");
     }
@@ -49,16 +49,15 @@ const AuthForm = () => {
   return (
     <div className="auth-page">
       <div className="logo">
-        {/* Replace text with the image */}
         <img src={ArkLogo} alt="Ark Banner" className="logo-image" />
       </div>
       <div className="auth-container">
-        <div className="auth-card">
+        <div className={`auth-card ${isRegister ? 'register-mode' : ''}`}>
           <h2>{isRegister ? "Create Account" : "Welcome Back"}</h2>
           {error && <p className="error-message">{error}</p>}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="auth-form">
             {isRegister && (
-              <>
+              <div className="name-fields">
                 <input
                   type="text"
                   placeholder="First Name"
@@ -73,7 +72,7 @@ const AuthForm = () => {
                   onChange={(e) => setLastName(e.target.value)}
                   required
                 />
-              </>
+              </div>
             )}
             <input
               type="email"
@@ -100,13 +99,20 @@ const AuthForm = () => {
             )}
             <button type="submit">{isRegister ? "Sign Up" : "Log In"}</button>
           </form>
+          
           <button className="switch-btn" onClick={() => setIsRegister(!isRegister)}>
             {isRegister ? "Already have an account? Log in" : "New user? Create an account"}
           </button>
-          <button className="google-btn" onClick={handleGoogleLogin}>
-            <img src="/google-icon.png" alt="Google Logo" className="google-icon" />
-            Sign in with Google
-          </button>
+          
+          <div className="divider">
+            <span>or</span>
+          </div>
+          
+          <div className="social-login">
+            <button className="google-btn" onClick={handleGoogleLogin} title="Sign in with Google">
+              <img src="/google-icon.png" alt="Google Logo" className="google-icon" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
