@@ -19,9 +19,13 @@ class EventCreate(BaseModel):
 # Endpoint to fetch events for all courses the current user is a member of
 @router.get("/events", response_model=List[EventCreate])
 def get_user_events(db: Session = Depends(get_db), current_user: Users = Depends(get_current_user)):
-    # Get all course ids the user is enrolled in
-    course_ids = [course.course_id for course in current_user.courses]
-    events = db.query(Events).filter(Events.course_id.in_(course_ids)).all()
+    # SUPER_ADMIN can see all events, others see only events for enrolled courses
+    if current_user.user_role == UserRole.SUPER_ADMIN:
+        events = db.query(Events).all()
+    else:
+        # Get all course ids the user is enrolled in
+        course_ids = [course.course_id for course in current_user.courses]
+        events = db.query(Events).filter(Events.course_id.in_(course_ids)).all()
     return events
 
 # Endpoint to fetch events for a specific course (for instructor or members)
@@ -30,8 +34,8 @@ def get_course_events(course_id: int, db: Session = Depends(get_db), current_use
     course = db.query(Courses).filter(Courses.course_id == course_id).first()
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")
-    # (Optional) Check that the user is a member of the course
-    if current_user not in course.students and current_user != course.instructor:
+    # SUPER_ADMIN can view events for any course, others need to be members or instructors
+    if current_user.user_role != UserRole.SUPER_ADMIN and current_user not in course.students and current_user != course.instructor:
         raise HTTPException(status_code=403, detail="Not authorized")
     events = db.query(Events).filter(Events.course_id == course_id).all()
     return events

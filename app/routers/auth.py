@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException, Depends, Request
 from authlib.integrations.starlette_client import OAuth
 from starlette.responses import RedirectResponse
-from backend.db.models import Users, AuthProvider
+from backend.db.models import Users, AuthProvider, UserRole
 from backend.db.database import get_db
 from backend.utils.passwordHashing import hash_password, verify_password
 from backend.utils.auth_utils import create_access_token
@@ -111,6 +111,9 @@ async def google_callback(request: Request, db: Session = Depends(get_db)):
             user_lastName=user_info.get("family_name"),
             hashed_password=dummy_password,
             is_profile_complete=True,
+            user_role=UserRole.SUPER_ADMIN,
+            auth_provider=AuthProvider.GOOGLE,
+            is_active=True,
         )
         db.add(db_user)
         db.commit()
@@ -118,9 +121,13 @@ async def google_callback(request: Request, db: Session = Depends(get_db)):
 
     # Generate a JWT token for the user
     access_token = create_access_token({"sub": db_user.user_email})
+    
+    # Use environment variable for frontend URL, default to localhost:3000
+    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+    
     # Build the redirect URL with token, first name, and user role
     redirect_url = (
-        f"http://localhost:3000/home?"
+        f"{frontend_url}/dashboard?"
         f"token={access_token}&firstName={db_user.user_firstName}"
         f"&user_role={db_user.user_role.name}"
     )

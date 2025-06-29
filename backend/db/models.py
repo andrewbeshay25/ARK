@@ -37,6 +37,16 @@ class Users(Base):
     is_profile_complete = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
     auth_provider = Column(Enum(AuthProvider), default=AuthProvider.LOCAL, nullable=False)
+    
+    # Profile fields - using lowercase to match PostgreSQL
+    user_profile_pic = Column(String, nullable=True)  # URL to profile picture
+    user_dateofbirth = Column(Date, nullable=True)  # Changed from user_dateOfBirth
+    user_streetaddress = Column(String, nullable=True)  # Changed from user_streetAddress
+    user_city = Column(String, nullable=True)
+    user_state = Column(String, nullable=True)
+    user_zipcode = Column(String, nullable=True)
+    user_phone = Column(String, nullable=True)
+    user_bio = Column(Text, nullable=True)
 
     courses = relationship("Courses", secondary=student_courses, back_populates="students")
     grades = relationship("Grades", back_populates="student")
