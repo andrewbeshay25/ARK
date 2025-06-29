@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         user_role: userRoleFromUrl || localStorage.getItem("user_role"),
       });
       // Clean URL (remove query parameters)
-      window.history.replaceState({}, document.title, "/home");
+      window.history.replaceState({}, document.title, "/dashboard");
     } else {
       // Fallback: get data from localStorage
       const token = localStorage.getItem("token");
