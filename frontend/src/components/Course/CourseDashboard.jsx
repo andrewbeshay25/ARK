@@ -1,24 +1,35 @@
 // frontend/src/components/Dashboard/CourseDashboard.jsx
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import CourseDashboardSidebar from './CourseDashboardSidebar';
+import CourseOverview from './CourseOverview';
+import CourseAssignments from './CourseAssignments';
+import CourseAnnouncements from './CourseAnnouncements';
+import CourseGrades from './CourseGrades';
+import CourseMembers from './CourseMembers';
+import CourseEvents from './CourseEvents';
+import CourseOptions from './CourseOptions';
+import { FaArrowLeft, FaHome } from 'react-icons/fa';
 import './CourseStyles/CourseDashboard.css';
-import { getCourseDashboard } from '../../services/api'; // This should call your backend endpoint
+import { getCourseDashboard } from '../../services/api';
 
 const CourseDashboard = () => {
   const { courseId } = useParams();
+  const { user } = useContext(AuthContext);
   const [courseData, setCourseData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch the course dashboard data from your API
     const fetchData = async () => {
       try {
+        setLoading(true);
         const data = await getCourseDashboard(courseId);
-        console.log("Fetched course data:", data);
         setCourseData(data);
       } catch (error) {
         console.error("Error fetching course data:", error);
+        setError(error.response?.data?.detail || "Failed to load course data");
       } finally {
         setLoading(false);
       }
@@ -26,42 +37,79 @@ const CourseDashboard = () => {
     fetchData();
   }, [courseId]);
 
+  const handleCourseUpdated = (updatedCourse) => {
+    setCourseData(updatedCourse);
+  };
+
+  const handleCourseDeleted = (courseId) => {
+    // Redirect to courses page after deletion
+    window.location.href = '/courses';
+  };
+
   if (loading) {
-    return <div className="loading">Loading course details...</div>;
+    return (
+      <div className="course-dashboard">
+        <div className="course-dashboard-loading">
+          <div className="loading-spinner"></div>
+          <p>Loading course dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="course-dashboard">
+        <div className="course-dashboard-error">
+          <div className="error-content">
+            <h2>⚠️ Error Loading Course</h2>
+            <p>{error}</p>
+            <button onClick={() => window.location.reload()} className="retry-btn">
+              🔄 Retry
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!courseData) {
-    return <div className="no-data">No data found for this course.</div>;
+    return (
+      <div className="course-dashboard">
+        <div className="course-dashboard-error">
+          <div className="error-content">
+            <h2>📚 Course Not Found</h2>
+            <p>This course doesn't exist or you don't have access to it.</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="course-dashboard">
-      <CourseDashboardSidebar />
-      <div className="course-main">
-        <header className="course-header">
-          <h1>{courseData.course_name}</h1>
-          {courseData.course_description && (
-            <p className="course-description">{courseData.course_description}</p>
-          )}
-        </header>
-        <section className="course-content">
-          <div className="assignments-section">
-            <h3>Assignments</h3>
-            {courseData.assignments && courseData.assignments.length > 0 ? (
-              <ul className="assignments-list">
-                {courseData.assignments.map((assignment) => (
-                  <li key={assignment.assignment_id}>
-                    {assignment.assignment_name} (Due:{" "}
-                    {new Date(assignment.assignment_dueDate).toLocaleDateString()})
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No assignments posted.</p>
-            )}
+      <CourseDashboardSidebar courseData={courseData} />
+      <div className="course-main-content">
+        <div className="course-header">
+          <div className="back-navigation">
+            <Link to="/courses" className="back-btn">
+              <FaArrowLeft /> Back to Courses
+            </Link>
+            <Link to="/dashboard" className="home-btn">
+              <FaHome /> Dashboard
+            </Link>
           </div>
-          {/* Additional sections (announcements, grades, members) can be added here */}
-        </section>
+        </div>
+        <Routes>
+          <Route path="/" element={<Navigate to="overview" replace />} />
+          <Route path="overview" element={<CourseOverview courseData={courseData} />} />
+          <Route path="assignments" element={<CourseAssignments courseId={courseId} />} />
+          <Route path="announcements" element={<CourseAnnouncements courseId={courseId} />} />
+          <Route path="grades" element={<CourseGrades courseId={courseId} />} />
+          <Route path="members" element={<CourseMembers courseId={courseId} />} />
+          <Route path="events" element={<CourseEvents courseId={courseId} />} />
+          <Route path="options" element={<CourseOptions courseData={courseData} onCourseUpdated={handleCourseUpdated} onCourseDeleted={handleCourseDeleted} />} />
+        </Routes>
       </div>
     </div>
   );
