@@ -3,3 +3,4 @@ venv/
 .DS_Store
 *.pyc
 keyGenerator.py
+test_auth.py
